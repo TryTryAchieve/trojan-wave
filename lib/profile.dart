@@ -12,7 +12,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 18),
         child: Column(
           children: [
            const Center(

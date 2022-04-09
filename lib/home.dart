@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'buy_page.dart';
+
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -24,10 +26,11 @@ class Home extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
               child: Text("Buy best products here.. Secured !!"),
             ),
-            CatalogItem(),
-            CatalogItem(),
-            CatalogItem(),
-            CatalogItem(),
+            CatalogItem(
+                productName: "Wheat",
+                sellerName: "Sushant",
+                quantityInKgs: "1000",
+                distanceInKms: "150"),
           ],
         ),
       ),
@@ -36,8 +39,17 @@ class Home extends StatelessWidget {
 }
 
 class CatalogItem extends StatelessWidget {
-  const CatalogItem({Key? key}) : super(key: key);
-
+  const CatalogItem(
+      {Key? key,
+      required this.productName,
+      required this.sellerName,
+      required this.quantityInKgs,
+      required this.distanceInKms})
+      : super(key: key);
+  final String productName;
+  final String sellerName;
+  final String quantityInKgs;
+  final String distanceInKms;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -59,23 +71,29 @@ class CatalogItem extends StatelessWidget {
           const SizedBox(width: 20),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
-                "Wheat",
-                style: TextStyle(
+                productName,
+                style: const TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                "Sushant Seller",
-                style: TextStyle(
+                sellerName,
+                style: const TextStyle(
                   fontSize: 15,
                 ),
               ),
               Text(
-                "150km",
-                style: TextStyle(
+                "$quantityInKgs Kgs",
+                style: const TextStyle(
+                  fontSize: 15,
+                ),
+              ),
+              Text(
+                "$distanceInKms Kms",
+                style: const TextStyle(
                   fontSize: 15,
                 ),
               ),
@@ -83,7 +101,12 @@ class CatalogItem extends StatelessWidget {
           ),
           const SizedBox(width: 20),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const BuyPage()),
+              );
+            },
             style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(Colors.blue)),
             child: const Text("Buy"),
