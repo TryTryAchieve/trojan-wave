@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "75050233419",
+    "project_id": "trojan-wave",
+    "storage_bucket": "trojan-wave.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:75050233419:android:0412cd0a80a73c9689a7ce",
+        "android_client_info": {
+          "package_name": "huehue.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "75050233419-89lbjvhbv6q88kda6i0vu4bfie27tueh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7JPZgC32rvMbI8-wjkU9j1Scu1N8b_yE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "75050233419-89lbjvhbv6q88kda6i0vu4bfie27tueh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
