@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:trojan_wave/search.dart';
 import './home.dart';
 import './login.dart';
-import './profile.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int index = 0;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,6 +26,10 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
+          currentIndex: index,
+          onTap: (value) => setState(() {
+            index = value;
+          }),
           elevation: 0,
           items: const [
             BottomNavigationBarItem(
@@ -36,14 +46,23 @@ class MyApp extends StatelessWidget {
             ),
           ],
         ),
-        body: const Home(),
+        body: _getBody(index),
       ),
-      initialRoute: '/profile',
-      routes: {
-        '/home': (context) => const Home(),
-        '/account': (context) => const Account(),
-        '/profile': (context) => const Profile(),
-      },
+    );
+  }
+
+  Widget _getBody(int index) {
+    switch (index) {
+      case 0:
+        return const Home(); // Create this function, it should return your first page as a widget
+      case 1:
+        return const Search(); // Create this function, it should return your second page as a widget
+      case 2:
+        return const Login(); // Create this function, it should return your third page as a widget
+    }
+
+    return const Center(
+      child: Text("There is no page builder for this index."),
     );
   }
 }

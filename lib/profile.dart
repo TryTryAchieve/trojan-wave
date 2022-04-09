@@ -1,42 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Profile extends StatelessWidget {
-  const Profile({ Key? key }) : super(key: key);
+class Profile extends StatefulWidget {
+  const Profile({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.cyan[50],
-        bottomNavigationBar: BottomNavigationBar(
-          elevation: 0,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_rounded),
-              label: "Home",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: "Search",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: "Account",
-            ),
-          ],
-        ),
-        body: const User(),
-    );
-  }
+  State<Profile> createState() => _ProfileState();
 }
 
-class User extends StatefulWidget {
-  const User({Key? key}) : super(key: key);
-
-  @override
-  State<User> createState() => _UserState();
-}
-
-class _UserState extends State<User> {
+class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(

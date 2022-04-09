@@ -1,36 +1,8 @@
 import 'package:flutter/material.dart';
-
-class Account extends StatelessWidget {
-  const Account({ Key? key }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.cyan[50],
-        bottomNavigationBar: BottomNavigationBar(
-          elevation: 0,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_rounded),
-              label: "Home",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: "Search",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: "Account",
-            ),
-          ],
-        ),
-        body:const Login(),
-    );
-  }
-}
+import 'package:trojan_wave/signup.dart';
 
 class Login extends StatefulWidget {
-  const Login({ Key? key }) : super(key: key);
+  const Login({Key? key}) : super(key: key);
 
   @override
   State<Login> createState() => _LoginState();
@@ -56,8 +28,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.cyanAccent[50],
+    return SafeArea(
       child: SingleChildScrollView(
         child: Form(
           key: _formkey,
@@ -65,10 +36,10 @@ class _LoginState extends State<Login> {
             children: [
               Image.asset(
                 "assets/images/pic.png",
-                cacheHeight: 300,
+                cacheHeight: 200,
               ),
               Text(
-                "Welcome $name",
+                "Welcome",
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -76,7 +47,8 @@ class _LoginState extends State<Login> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 16.0, horizontal: 32.0),
                 child: Column(children: [
                   TextFormField(
                     decoration: const InputDecoration(
@@ -95,7 +67,7 @@ class _LoginState extends State<Login> {
                   ),
                   TextFormField(
                       obscureText: true,
-                      decoration:const InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: "Enter password",
                         labelText: "Password",
                       ),
@@ -106,13 +78,26 @@ class _LoginState extends State<Login> {
                           return "Password should be atleast 6 characters";
                         }
                       }),
-                 const SizedBox(
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Signup()),
+                      );
+                    },
+                    child: const Text("Dont have a account ? Signup"),
+                  ),
+                  const SizedBox(
                     height: 20.0,
                   ),
                   InkWell(
                     onTap: () => moveToHome(context),
                     child: AnimatedContainer(
-                        duration:const Duration(seconds: 1),
+                        duration: const Duration(seconds: 1),
                         height: 50,
                         width: changeButton ? 50 : 100,
                         decoration: BoxDecoration(
@@ -127,9 +112,11 @@ class _LoginState extends State<Login> {
                                   Icons.done,
                                   color: Colors.white,
                                 )
-                              :const Text(
+                              : const Text(
                                   "Login",
-                                  style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600),
                                 ),
                         )),
                   ),
