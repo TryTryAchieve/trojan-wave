@@ -15,19 +15,18 @@ class Signup extends StatefulWidget {
 
 class _SignupState extends State<Signup> {
   final _auth = FirebaseAuth.instance;
-  
+
   // string for displaying the error Message
   String? errorMessage;
-
 
   // our form key
   final _formKey = GlobalKey<FormState>();
   // editing Controller
-  final firstNameEditingController = new TextEditingController();
-  final secondNameEditingController = new TextEditingController();
-  final emailEditingController = new TextEditingController();
-  final passwordEditingController = new TextEditingController();
-  final confirmPasswordEditingController = new TextEditingController();
+  final firstNameEditingController = TextEditingController();
+  final secondNameEditingController = TextEditingController();
+  final emailEditingController = TextEditingController();
+  final passwordEditingController = TextEditingController();
+  final confirmPasswordEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +36,7 @@ class _SignupState extends State<Signup> {
         controller: firstNameEditingController,
         keyboardType: TextInputType.name,
         validator: (value) {
-          RegExp regex = new RegExp(r'^.{3,}$');
+          RegExp regex = RegExp(r'^.{3,}$');
           if (value!.isEmpty) {
             return ("First Name cannot be Empty");
           }
@@ -51,7 +50,7 @@ class _SignupState extends State<Signup> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          prefixIcon:const Icon(Icons.account_circle),
+          prefixIcon: const Icon(Icons.account_circle),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "First Name",
           border: OutlineInputBorder(
@@ -75,8 +74,8 @@ class _SignupState extends State<Signup> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          prefixIcon:const Icon(Icons.account_circle),
-          contentPadding:const EdgeInsets.fromLTRB(20, 15, 20, 15),
+          prefixIcon: const Icon(Icons.account_circle),
+          contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Second Name",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
@@ -104,8 +103,8 @@ class _SignupState extends State<Signup> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          prefixIcon:const Icon(Icons.mail),
-          contentPadding:const EdgeInsets.fromLTRB(20, 15, 20, 15),
+          prefixIcon: const Icon(Icons.mail),
+          contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Email",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
@@ -131,8 +130,8 @@ class _SignupState extends State<Signup> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          prefixIcon:const Icon(Icons.vpn_key),
-          contentPadding:const EdgeInsets.fromLTRB(20, 15, 20, 15),
+          prefixIcon: const Icon(Icons.vpn_key),
+          contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Password",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
@@ -156,8 +155,8 @@ class _SignupState extends State<Signup> {
         },
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
-          prefixIcon:const Icon(Icons.vpn_key),
-          contentPadding:const EdgeInsets.fromLTRB(20, 15, 20, 15),
+          prefixIcon: const Icon(Icons.vpn_key),
+          contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Confirm Password",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
@@ -175,7 +174,7 @@ class _SignupState extends State<Signup> {
           onPressed: () {
             signUp(emailEditingController.text, passwordEditingController.text);
           },
-          child:const Text(
+          child: const Text(
             "SignUp",
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -189,7 +188,7 @@ class _SignupState extends State<Signup> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon:const Icon(Icons.arrow_back, color: Colors.red),
+          icon: const Icon(Icons.arrow_back, color: Colors.blue),
           onPressed: () {
             // passing this to our root
             Navigator.of(context).pop();
@@ -237,7 +236,7 @@ class _SignupState extends State<Signup> {
                                       builder: (context) =>
                                           const LoginScreen()));
                             },
-                            child:const Text(
+                            child: const Text(
                               "Login",
                               style: TextStyle(
                                   color: Colors.blue,
@@ -249,7 +248,6 @@ class _SignupState extends State<Signup> {
                     const SizedBox(height: 20),
                     signUpButton,
                     const SizedBox(height: 15),
-                    
                   ],
                 ),
               ),
@@ -259,6 +257,7 @@ class _SignupState extends State<Signup> {
       ),
     );
   }
+
   void signUp(String email, String password) async {
     if (_formKey.currentState!.validate()) {
       try {
@@ -296,6 +295,7 @@ class _SignupState extends State<Signup> {
       }
     }
   }
+
   postDetailsToFirestore() async {
     // calling our firestore
     // calling our user model
@@ -318,9 +318,7 @@ class _SignupState extends State<Signup> {
         .set(userModel.toMap());
     Fluttertoast.showToast(msg: "Account created successfully :) ");
 
-    Navigator.pushAndRemoveUntil(
-        (context),
-        MaterialPageRoute(builder: (context) => const Home()),
-        (route) => false);
+    Navigator.pushAndRemoveUntil((context),
+        MaterialPageRoute(builder: (context) => Home()), (route) => false);
   }
 }

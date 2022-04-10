@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:trojan_wave/home.dart';
+import 'package:trojan_wave/main.dart';
+import 'package:trojan_wave/profile.dart';
 import 'package:trojan_wave/signup.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,17 +17,21 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
   // editing controller
-  final TextEditingController emailController = new TextEditingController();
-  final TextEditingController passwordController = new TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   // firebase
   final _auth = FirebaseAuth.instance;
-  
+
   // string for displaying the error Message
   String? errorMessage;
 
   @override
   Widget build(BuildContext context) {
+    if (FirebaseAuth.instance.currentUser != null) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const Profile()));
+    }
     //email field
     final emailField = TextFormField(
         autofocus: false,
@@ -49,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           prefixIcon: const Icon(Icons.mail),
-          contentPadding:const EdgeInsets.fromLTRB(20, 15, 20, 15),
+          contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Email",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
@@ -62,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
         controller: passwordController,
         obscureText: true,
         validator: (value) {
-          RegExp regex = new RegExp(r'^.{6,}$');
+          RegExp regex = RegExp(r'^.{6,}$');
           if (value!.isEmpty) {
             return ("Password is required for login");
           }
@@ -93,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
           onPressed: () {
             signIn(emailController.text, passwordController.text);
           },
-          child:const Text(
+          child: const Text(
             "Login",
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -137,10 +142,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          const Signup()));
+                                      builder: (context) => const Signup()));
                             },
-                            child:const Text(
+                            child: const Text(
                               "SignUp",
                               style: TextStyle(
                                   color: Colors.blue,
@@ -168,7 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
             .then((uid) => {
                   Fluttertoast.showToast(msg: "Login Successful"),
                   Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => const Home())),
+                      MaterialPageRoute(builder: (context) => const MyApp())),
                 });
       } on FirebaseAuthException catch (error) {
         switch (error.code) {

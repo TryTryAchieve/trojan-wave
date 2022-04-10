@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:trojan_wave/search.dart';
+import 'package:trojan_wave/profile.dart';
 import './home.dart';
 import './login.dart';
 
@@ -48,10 +49,6 @@ class _MyAppState extends State<MyApp> {
               label: "Home",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: "Search",
-            ),
-            BottomNavigationBarItem(
               icon: Icon(Icons.person),
               label: "Account",
             ),
@@ -65,11 +62,11 @@ class _MyAppState extends State<MyApp> {
   Widget _getBody(int index) {
     switch (index) {
       case 0:
-        return const Home(); // Create this function, it should return your first page as a widget
+        return const Home(); // Create this function, it should return your first page as a widget      // Create this function, it should return your second page as a widget
       case 1:
-        return const Search(); // Create this function, it should return your second page as a widget
-      case 2:
-        return const LoginScreen(); // Create this function, it should return your third page as a widget
+        return FirebaseAuth.instance.currentUser == null
+            ? const Profile()
+            : const LoginScreen(); // Create this function, it should return your third page as a widget
     }
 
     return const Center(

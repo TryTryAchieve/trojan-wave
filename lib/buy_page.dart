@@ -1,39 +1,71 @@
 import 'package:flutter/material.dart';
 
 class BuyPage extends StatelessWidget {
-  const BuyPage({Key? key}) : super(key: key);
-
+  final String productName;
+  final String sellerName;
+  final String quantityInKgs;
+  final String distanceInKms;
+  final String imageLink;
+  final String itemId;
+  final String prizePerKg;
+  const BuyPage({
+    Key? key,
+    required this.productName,
+    required this.sellerName,
+    required this.quantityInKgs,
+    required this.distanceInKms,
+    required this.imageLink,
+    required this.itemId,
+    required this.prizePerKg,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.blue),
+          onPressed: () {
+            // passing this to our root
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               children: [
                 Image.network(
-                  "https://picsum.photos/200",
+                  imageLink,
                   height: 200,
                 ),
                 const SizedBox(height: 30),
                 Column(
-                  children: const [
+                  children: [
                     Text(
-                      "Wheat",
-                      style: TextStyle(
+                      productName,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 32.0,
                       ),
                     ),
                     Text(
-                      "Sushant Seller",
-                      style: TextStyle(
+                      "$sellerName Seller",
+                      style: const TextStyle(
                         fontSize: 17.0,
                       ),
                     ),
                     Text(
-                      "150 KMs",
-                      style: TextStyle(
+                      "$distanceInKms KMs",
+                      style: const TextStyle(
+                        fontSize: 17.0,
+                      ),
+                    ),
+                    Text(
+                      "$prizePerKg per Kg",
+                      style: const TextStyle(
                         fontSize: 17.0,
                       ),
                     ),
@@ -43,11 +75,11 @@ class BuyPage extends StatelessWidget {
                 Container(
                   width: MediaQuery.of(context).size.width * 0.5,
                   margin: const EdgeInsets.all(10),
-                  child: const TextField(
+                  child: TextField(
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Max Quantity 1000 Kgs",
+                      border: const OutlineInputBorder(),
+                      labelText: "Max Quantity $quantityInKgs Kgs",
                     ),
                   ),
                 ),
