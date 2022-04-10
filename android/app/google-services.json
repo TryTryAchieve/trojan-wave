@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "75050233419",
-    "project_id": "trojan-wave",
-    "storage_bucket": "trojan-wave.appspot.com"
+    "project_number": "69498378939",
+    "project_id": "trojan-wave-18b2e",
+    "storage_bucket": "trojan-wave-18b2e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:75050233419:android:0412cd0a80a73c9689a7ce",
+        "mobilesdk_app_id": "1:69498378939:android:f9abe91d5de7bf01c9279e",
         "android_client_info": {
-          "package_name": "huehue.com"
+          "package_name": "com.example.trojan_wave"
         }
       },
       "oauth_client": [
         {
-          "client_id": "75050233419-89lbjvhbv6q88kda6i0vu4bfie27tueh.apps.googleusercontent.com",
+          "client_id": "69498378939-srt7779eha2e3ilgr754bh2jne3ca823.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD7JPZgC32rvMbI8-wjkU9j1Scu1N8b_yE"
+          "current_key": "AIzaSyBNS_SqSIM6SJf83V_kAFaIKV12M11XzvI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "75050233419-89lbjvhbv6q88kda6i0vu4bfie27tueh.apps.googleusercontent.com",
+              "client_id": "69498378939-srt7779eha2e3ilgr754bh2jne3ca823.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
