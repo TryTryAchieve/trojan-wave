@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'ListModel.dart'; 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
 
@@ -12,6 +12,7 @@ class _ProfileState extends State<Profile> {
   final user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
+    print(ListModel);
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 18),
@@ -70,6 +71,7 @@ class _ProfileState extends State<Profile> {
               },
               child: const Text("Logout"),
             ),
+
           ],
         ),
       ),
