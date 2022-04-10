@@ -263,8 +263,11 @@ class _SignupState extends State<Signup> {
       try {
         await _auth
             .createUserWithEmailAndPassword(email: email, password: password)
-            .then((value) => {postDetailsToFirestore()})
-            .catchError((e) {
+            .then((value) {
+          postDetailsToFirestore();
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const Home()));
+        }).catchError((e) {
           Fluttertoast.showToast(msg: e!.message);
         });
       } on FirebaseAuthException catch (error) {

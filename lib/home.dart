@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:trojan_wave/login.dart';
 import 'buy_page.dart';
 
 class CatalogItem extends StatelessWidget {
@@ -78,19 +80,24 @@ class CatalogItem extends StatelessWidget {
           const SizedBox(width: 20),
           ElevatedButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => BuyPage(
-                          productName: productName,
-                          sellerName: sellerName,
-                          quantityInKgs: quantityInKgs,
-                          distanceInKms: distanceInKms,
-                          imageLink: imageLink,
-                          itemId: itemId,
-                          prizePerKg: prizePerKg,
-                        )),
-              );
+              if (FirebaseAuth.instance.currentUser == null) {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const LoginScreen()));
+              } else {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => BuyPage(
+                            productName: productName,
+                            sellerName: sellerName,
+                            quantityInKgs: quantityInKgs,
+                            distanceInKms: distanceInKms,
+                            imageLink: imageLink,
+                            itemId: itemId,
+                            prizePerKg: prizePerKg,
+                          )),
+                );
+              }
             },
             style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(Colors.blue)),
@@ -215,39 +222,58 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-              child: Text(
-                "Trojan Wave",
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Trojan Wave",
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginScreen()));
+                        },
+                        icon: const Icon(
+                          Icons.person,
+                          size: 32,
+                        )),
+                  ],
                 ),
               ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-              child: Text("Buy best products here.. Secured !!"),
-            ),
-            Column(
-              children: itemList.map((e) {
-                return CatalogItem(
-                  productName: e['productName'],
-                  sellerName: e['sellerName'],
-                  quantityInKgs: e['quantityInKgs'],
-                  distanceInKms: e['distanceInKms'],
-                  imageLink: e['imageLink'],
-                  itemId: e['itemId'],
-                  prizePerKg: e['prizePerKg'],
-                );
-              }).toList(),
-            )
-          ],
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                child: Text("Buy best products here.. Secured !!"),
+              ),
+              Column(
+                children: itemList.map((e) {
+                  return CatalogItem(
+                    productName: e['productName'],
+                    sellerName: e['sellerName'],
+                    quantityInKgs: e['quantityInKgs'],
+                    distanceInKms: e['distanceInKms'],
+                    imageLink: e['imageLink'],
+                    itemId: e['itemId'],
+                    prizePerKg: e['prizePerKg'],
+                  );
+                }).toList(),
+              )
+            ],
+          ),
         ),
       ),
     );

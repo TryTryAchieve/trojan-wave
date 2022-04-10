@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:trojan_wave/main.dart';
+import 'package:trojan_wave/home.dart';
 import 'package:trojan_wave/profile.dart';
 import 'package:trojan_wave/signup.dart';
 
@@ -28,11 +28,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (FirebaseAuth.instance.currentUser != null) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Profile()));
-    }
-    //email field
     final emailField = TextFormField(
         autofocus: false,
         controller: emailController,
@@ -108,58 +103,73 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: SingleChildScrollView(
-          child: Container(
-            color: Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.all(36.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                        height: 200,
-                        child: Image.asset(
-                          "./assets/images/pic.png",
-                          fit: BoxFit.contain,
-                        )),
-                    const SizedBox(height: 45),
-                    emailField,
-                    const SizedBox(height: 25),
-                    passwordField,
-                    const SizedBox(height: 35),
-                    loginButton,
-                    const SizedBox(height: 15),
-                    Row(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.blue),
+          onPressed: () {
+            // passing this to our root
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => const Home()));
+          },
+        ),
+      ),
+      body: FirebaseAuth.instance.currentUser != null
+          ? const Profile()
+          : Center(
+              child: SingleChildScrollView(
+                child: Container(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(36.0),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          const Text("Don't have an account? "),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const Signup()));
-                            },
-                            child: const Text(
-                              "SignUp",
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15),
-                            ),
-                          )
-                        ])
-                  ],
+                          SizedBox(
+                              height: 200,
+                              child: Image.asset(
+                                "./assets/images/pic.png",
+                                fit: BoxFit.contain,
+                              )),
+                          const SizedBox(height: 45),
+                          emailField,
+                          const SizedBox(height: 25),
+                          passwordField,
+                          const SizedBox(height: 35),
+                          loginButton,
+                          const SizedBox(height: 15),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                const Text("Don't have an account? "),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const Signup()));
+                                  },
+                                  child: const Text(
+                                    "SignUp",
+                                    style: TextStyle(
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                )
+                              ])
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
-      ),
     );
   }
 
@@ -172,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
             .then((uid) => {
                   Fluttertoast.showToast(msg: "Login Successful"),
                   Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => const MyApp())),
+                      MaterialPageRoute(builder: (context) => const Home())),
                 });
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
