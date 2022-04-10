@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'ListModel.dart'; 
+import 'package:trojan_wave/contractsPage.dart';
+import 'ListModel.dart';
+
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
 
@@ -71,7 +73,16 @@ class _ProfileState extends State<Profile> {
               },
               child: const Text("Logout"),
             ),
-
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => ContractsPage()));
+              },
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text("Contracts"),
+              ),
+            ),
           ],
         ),
       ),

@@ -8,15 +8,14 @@ module.exports = {
     advanced: {
       websockets: true, // Enable EventEmitter interface for web3 (default: false)
     },
-    networkName:
-    {
-      networkCheckTimeout: 20000
-    }
+    networkName: {
+      networkCheckTimeout: 20000,
+    },
   },
   contracts_build_directory: "./src/abis/",
   compilers: {
     solc: {
-      version: "0.5.0",
+      version: "0.8.13",
       optimizer: {
         enabled: true,
         runs: 200,

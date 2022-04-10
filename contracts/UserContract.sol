@@ -1,4 +1,4 @@
-pragma solidity 0.5.0;
+pragma solidity ^0.8.13;
 
 contract UserContract
 {
@@ -13,13 +13,15 @@ contract UserContract
         string date;
     }
     uint256 public contractNumber;
-    mapping(uint256 => Cont) contracts;
+    mapping(uint256 => Cont) public  contracts;
 
     event ContractCreated(string ToLocation,string FromLocation,uint quantity);
 
-    constructor() public 
-    {
-        contractNumber = 0;
+    constructor() public
+    {   
+    
+        contracts[0] = Cont(1,1,1,1,"default","default","default");
+        contractNumber = 1;
 
     }
     function createContract(uint farmerAdhaar,uint  buyerAdhaar,uint quantity,uint  amount,string memory fromLocation,string memory toLocation,string memory date) public 
